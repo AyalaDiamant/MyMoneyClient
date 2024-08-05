@@ -1,0 +1,22 @@
+li:hover {
+    background-color: rgb(225, 241, 225);
+}
+
+li:nth-child(odd) {
+    background-color: rgb(235, 246, 235);
+}
+
+/* .scrl {
+    margin-bottom: 35px;
+    height: 500px;
+    overflow: auto;
+} */
+
+h4 {
+    text-align: center;
+    font-weight: bold;
+}
+
+button {
+    margin-left: 2px;
+}

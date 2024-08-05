@@ -1,0 +1,371 @@
+<div class="alert alert-danger" *ngIf="showWarning">
+    שימו לב! עדיין לא סיימתם את הגדרת אופני התשלום ותחומי ההכנסות וההוצאות שלכם! עליכם לעבור <a
+        [routerLink]="'/home/settings'">לדף הגדרות</a> על מנת למלא את הגדרותיכם!
+</div>
+
+<div class="card-header">
+    <h5>{{title}}</h5>
+    <!-- <button *ngIf="this.isSearch" class="btn btn-outline-info" title="הורד ל PDF" (click)="printToPDF()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-filetype-pdf"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z" />
+        </svg>
+    </button> -->
+</div>
+<div class="card-body">
+
+    <h6 class="smll">חיפוש</h6>
+    <hr>
+
+    <div class="row bg-green" id="search">
+        <div class="col-sm-2">
+            <label>
+                סוג התנועה
+            </label><br>
+            <label>
+                <input class="form-check-input" type="radio" name="optionSearch" [value]="0" ng-value="true"
+                    [(ngModel)]="search.type" (ngModelChange)="search.user2AreaId=null">
+                הכנסות והוצאות
+            </label><br>
+            <label>
+                <input class="form-check-input" type="radio" name="optionSearch" [value]="1" [(ngModel)]="search.type"
+                    (ngModelChange)="search.user2AreaId=null">
+                הכנסות
+            </label><br>
+            <label>
+                <input class="form-check-input" type="radio" name="optionSearch" [value]="2" [(ngModel)]="search.type"
+                    (ngModelChange)="search.user2AreaId=null">
+                הוצאות
+            </label>
+
+        </div>
+        <div class="col-sm-3">
+            <label>מתאריך</label>
+            <input type="date" class="form-control" [ngModel]="search.from| date:'yyyy-MM-dd'"
+                (ngModelChange)="search.from = $event">
+        </div>
+        <div class="col-sm-3">
+            <label>עד תאריך</label>
+            <input type="date" class="form-control" [ngModel]="search.to| date:'yyyy-MM-dd'"
+                (ngModelChange)="search.to = $event">
+        </div>
+        <div class="col-sm-1">
+            <label>תחום</label>
+            <select class="form-control" [(ngModel)]="search.user2AreaId" required
+                [ngClass]="{'danger':newMove.userArea==null||newMove.userArea.id==0}">
+                <option value="0">הכל</option>
+                <option *ngFor="let s of filters.areas | sortByType:search.type" [ngValue]="s.id">{{s.description}}
+                </option>
+            </select>
+        </div>
+        <div class="col-sm-1">
+            <label>אופן התשלום</label>
+            <select class="form-control" [(ngModel)]="search.payOptionId">
+                <option value="0">הכל</option>
+                <option *ngFor="let po of filters.payOptions" [ngValue]="po.id">{{po.name}}</option>
+            </select>
+        </div>
+
+        <div class="col-sm-2" >
+            <br>
+            <button class="btn btn-success" title="חיפוש" (click)="onSearchClick()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+            </button>
+            <button class="btn btn-secondary " title="נקה שדות" (click)="clear()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                    <path
+                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                </svg>
+            </button>
+            <button *ngIf="this.isSearch" class="btn btn-info col-sm-4" title="להדפסת תוצאות החיפוש" (click)="printToPDF()">
+                להדפסת תוצאות החיפוש
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <br>
+
+    <div class="mrg  table-responsive">
+        <table class="table">
+            <thead>
+                <tr class="bg-green">
+                    <th>
+                        סוג תנועה
+                    </th>
+                    <th>
+                        תחום
+                    </th>
+                    <th>
+                        תאריך
+                    </th>
+
+                    <th>
+                        אופן
+                    </th>
+                    <th>
+                        סכום
+                    </th>
+                    <!-- <th *ngIf="typeAdd === 2">קשר לחוב</th> -->
+                    <th>
+                        הערות
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: white !important;">
+                    <th>
+                        <label>
+                            <input class="form-check-input" type="radio" name="option" [value]="1" [(ngModel)]="typeAdd"
+                                (ngModelChange)="chooseArea($event)">
+                            הכנסות
+                        </label>
+                        <br>
+                        <label>
+                            <input class="form-check-input" type="radio" name="option" [value]="2" [(ngModel)]="typeAdd"
+                                (ngModelChange)="chooseArea($event)">
+                            הוצאות
+                        </label>
+                    </th>
+                    <!-- <td>
+                        <input type="text" class="form-control" [(ngModel)]="newMove.description">
+                    </td> -->
+                    <td>
+                        <select required class="form-control danger"
+                            [ngClass]="{'danger':newMove.userArea==null||newMove.userArea.id==0}"
+                            [(ngModel)]="newMove.userArea.id" name="area" #area="ngModel">
+                            <option [ngValue]="s.id" *ngFor="let s of filters.areas | sortByType:typeAdd">
+                                {{s.description}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="date" required class="form-control danger"
+                            [ngClass]="{'danger':newMove.date==null}" [(ngModel)]="newMove.date" name="dateMove"
+                            #dateMove="ngModel">
+                    </td>
+                    <!-- <td>
+                        <select required class="form-control danger" [ngClass]="{'danger':newMove.userToArea.area==null||newMove.userToArea.area.id==0}" [(ngModel)]="newMove.userToArea.area" name="area"
+                            #area="ngModel">
+                            <option *ngFor="let s of filters.areas|sortByType:type" [ngValue]="s">{{s.description}}
+                            </option>
+                        </select>
+                    </td> -->
+                    <td>
+                        <select class="form-control danger" required [ngClass]="{'danger':newMove.payOption==null}"
+                            [(ngModel)]="newMove.payOption" name="payOpt" #payOpt="ngModel">
+                            <option *ngFor="let po of filters.payOptions | searchIsActive" [ngValue]="po">
+                                {{po.name}}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" required [ngClass]="{'danger':newMove.sum==null}"
+                            class="form-control danger" [(ngModel)]="newMove.sum" #sum="ngModel" name="sum" min="0">
+
+                    </td>
+                    <!-- <td *ngIf="typeAdd === 2">
+                        <select class="form-control danger" required [ngClass]="{'danger':newMove.payOption==null}"
+                            [(ngModel)]="newMove.payOption" name="payOpt" #payOpt="ngModel">
+                            <option *ngFor="let po of filters.payOptions | searchIsActive" [ngValue]="po">
+                                {{po.name}}
+                            </option>
+                        </select>
+                    </td> -->
+                    <td>
+                        <input type="text" class="form-control" [(ngModel)]="newMove.common">
+                    </td>
+
+                    <td>
+                        <button class="btn btn-success" title="הוסף חדש" [disabled]="isError(newMove)"
+                            (click)="addMove()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                            </svg>
+
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="scrl  table-responsive" style="text-align: center;">
+        <span *ngIf="movings.length==0">אין נתונים להצגה</span>
+        <table class="table">
+            <tbody>
+                <!-- <tr *ngIf="movings.length==0">אין נתונים להצגה</tr> -->
+
+                <tr *ngFor="let m of movings"
+                    [ngClass]="{'deviation':m.isDeviation, 'revenues' : m.userArea.type==1 , 'expenses': m.userArea.type==2 }">
+                    <td *ngIf="m.userArea.type==1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green"
+                            class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                        </svg>
+                    </td>
+                    <td *ngIf="m.userArea.type==2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
+                            class="bi bi-arrow-right-square" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                        </svg>
+                    </td>
+                    <td *ngIf="!m.inEdit">
+                        {{m.userArea.name}}
+                    </td>
+                    <!-- <td *ngIf="!m.inEdit">
+                        {{m.description}}
+                    </td> -->
+                    <td *ngIf="!m.inEdit">
+                        {{m.date|date:"dd/MM/yyyy"}}
+                    </td>
+                    <!-- <td *ngIf="!m.inEdit">
+                        {{m.userArea.name}}
+                    </td> -->
+                    <td *ngIf="!m.inEdit">
+                        {{m.payOption.name}}
+                    </td>
+                    <td *ngIf="!m.inEdit">
+                        {{m.sum}}
+                    </td>
+                    <td *ngIf="!m.inEdit">
+                        {{m.common}}
+                    </td>
+                    <td *ngIf="!m.inEdit">
+                        <button class="btn btn-primary" title="עריכה" (click)="editMove(m)">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                            </svg>
+
+                        </button>
+                        <button class="btn btn-danger" title="מחיקה" (click)="deleteMove(m.id)"><svg width="1em"
+                                height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z">
+                                </path>
+                                <path fill-rule="evenodd"
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z">
+                                </path>
+                            </svg>
+                        </button>
+
+
+                    </td>
+                    <!-- 
+                    <td *ngIf="m.inEdit">
+                        <input type="text" class="form-control" [(ngModel)]="m.description">
+                    </td> -->
+                    <td *ngIf="m.inEdit">
+                        <select class="form-control" required [ngClass]="{'danger':m.userArea==null || m.userArea==''}"
+                            [(ngModel)]="m.userArea.id" name="area" #area="ngModel">
+                            <option *ngFor="let s of filters.areas|sortByType:typeAdd" [ngValue]="s.id">
+                                {{s.description}}
+                            </option>
+                        </select>
+                    </td>
+                    <td *ngIf="m.inEdit">
+                        <input type="date" class="form-control" required [ngClass]="{'danger':m.date==null}"
+                            [ngModel]="m.date | date:'yyyy-MM-dd'" name="date" #date="ngModel"
+                            (ngModelChange)="m.date = $event">
+                    </td>
+
+                    <!-- <td *ngIf="m.inEdit">
+                        <select class="form-control" required [ngClass]="{'danger':m.userArea==null || m.userArea==''}" [(ngModel)]="m.userArea.id" name="area"
+                            #area="ngModel">
+                            <option *ngFor="let s of filters.areas|sortByType:type" [ngValue]="s.id">{{s.description}}
+                            </option>
+                        </select>
+                    </td> -->
+                    <td *ngIf="m.inEdit">
+                        <select class="form-control" required [ngClass]="{'danger':m.payOption==null}"
+                            [(ngModel)]="m.payOption.id" name="payOpt" #payOpt="ngModel">
+                            <option *ngFor="let po of filters.payOptions" [ngValue]="po.id">{{po.name}}</option>
+                        </select>
+                    </td>
+                    <td *ngIf="m.inEdit">
+                        <select class="form-control" required [ngClass]="{'danger':m.payOption==null}"
+                            [(ngModel)]="m.payOption.id" name="payOpt" #payOpt="ngModel">
+                            <option *ngFor="let po of filters.payOptions" [ngValue]="po.id">{{po.name}}</option>
+                        </select>
+                    </td>
+                    <td *ngIf="m.inEdit">
+                        <input type="number" required [ngClass]="{'danger':m.sum==null}" class="form-control"
+                            [(ngModel)]="m.sum" name="sum" #sum="ngModel">
+                    </td>
+                    <td *ngIf="m.inEdit">
+                        <input type="text" class="form-control" [(ngModel)]="m.common">
+                    </td>
+                    <td *ngIf="m.inEdit">
+                        <button class="btn btn-success" title="שמירה" [disabled]="isError(m)" (click)="save(m)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-save" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                            </svg>
+
+                        </button>
+                        <button class="btn btn-danger" title="ביטול" (click)="cancel(m)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                <path
+                                    d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                            </svg>
+
+                        </button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 
+    <div class="card-footer bg-green"> -->
+    <div class="card-footer row bg-green">
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-1">
+            הכנסות:
+        </div>
+        <div class="col-sm-1">
+            {{movings|amountalCulation: 1}}
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-1">
+            הוצאות:
+        </div>
+        <div class="col-sm-1">
+            {{movings|amountalCulation: 2}}
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-1">
+            יתרה:
+        </div>
+        <div id="balance" class="col-sm-1">
+            {{movings|amountalCulation: 3}}
+        </div>
+        <div class="col-sm-1">
+        </div>
+    </div>
+</div>
+<!-- </div> -->

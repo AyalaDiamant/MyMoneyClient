@@ -1,0 +1,35 @@
+/* .scrl {
+    margin-bottom: 35px;
+    height: 700px;
+    overflow: auto;
+}
+
+.card{
+    min-height: 450px;
+}
+
+.card-body{
+    max-height: 609px;
+} */
+
+/* :host ::ng-deep {
+    margin-bottom: 35px;
+    height: 700px;
+    overflow: auto;
+  }
+
+  styles:[:host ::ng-deep child{
+    color:orange;
+  }] */
+
+.col-sm-12 {
+    padding-bottom: 15px;
+}
+
+label {
+    margin: 5px;
+}
+
+label>input {
+    margin: 5px;
+}

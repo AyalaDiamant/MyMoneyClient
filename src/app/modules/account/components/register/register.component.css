@@ -1,0 +1,45 @@
+.row{
+    margin-top: 10px;
+}
+.center{
+    margin-right: 42%;
+}
+/* .row.form-group button{
+    width: 97%;
+    margin-left: auto;
+    margin-right: auto;
+} */
+h4{
+    text-align: center;
+}
+.btn-group{
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+button{
+    margin-left: 2px;
+}
+input[type="checkbox"]{
+    margin-left: 5px;
+    margin-top: 1px;
+}
+div.text-danger{
+    margin-top: -16px;
+    margin-right: 47px;
+}
+.block {
+    display: block;
+ }
+ #link-terms{
+    color: #0d6efd;
+    text-decoration: underline;
+    cursor: pointer;  
+ }
+ #spann{
+    display: inline-block
+ }
+ #date-pay{
+    font-size: 13px;
+    font-weight: bold;
+ }

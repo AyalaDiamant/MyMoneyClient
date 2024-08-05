@@ -1,0 +1,53 @@
+.scrl{
+    margin-bottom: 35px;
+    height: 500px;
+    overflow: auto;
+}
+tr:hover{
+    background-color: rgb(225, 241, 225) ;
+}
+.new:hover{
+    background-color:white !important;
+}
+tr:nth-child(odd)  {
+    background-color: rgb(235, 246, 235) ;
+
+}
+button{
+    margin-left: 2px;
+}
+.card{
+    min-height: 450px;
+}
+.list-group{
+    padding-right: 0px;
+    padding-left: 0px;
+
+}
+.card-footer.bg-green{
+    height: 44px;
+    font-weight: bold;
+}
+.card-body{
+    min-height: 610px;
+    max-height: 610px;
+}
+/* .danger{
+    border: red solid 1px;
+} */
+.search{
+    margin-bottom:20px;
+
+}
+
+td{
+    text-align: center;
+}
+#warn{
+    width: 40%;
+    position: absolute;
+    top:242px;
+    right:32%;
+
+}
+

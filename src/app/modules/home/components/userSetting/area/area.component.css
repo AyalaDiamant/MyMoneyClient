@@ -1,0 +1,37 @@
+/* .scrl{
+    margin-bottom: 35px;
+
+    height: 500px;
+    overflow: auto;
+} */
+input[type=checkbox]{
+    margin-left: 4px;
+}
+li:hover{
+    background-color: rgb(225, 241, 225) ;
+}
+li:nth-child(odd)  {
+    background-color: rgb(235, 246, 235) ;
+
+}
+button{
+    margin-left: 2px;
+    
+}
+.list-group{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+/* .card{
+    min-height: 450px;
+}
+.card-body{
+    max-height: 609px;
+} */
+.danger{
+    border: red solid 1px;
+}
+h4{
+    text-align: center;
+    font-weight: bold;
+}

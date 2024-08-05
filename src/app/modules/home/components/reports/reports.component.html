@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-sm-2">
+    
+
+
+  </div>
+
+  <div class="col-sm-8">
+    <nav>
+      <a class="btn btn-link btn-outline-secondary" [routerLinkActive]="'active'" [routerLink]="'historyreport'">
+        היסטוריה</a>
+
+      <a class="btn btn-link btn-outline-secondary" [routerLinkActive]="'active'" [routerLink]="'tithereport'">
+        מעשרות</a>
+
+
+
+      <a class="btn btn-link btn-outline-secondary" [routerLinkActive]="'active'" [routerLink]="'movingreports'">
+        הוצאות והכנסות
+      </a>
+
+
+
+
+
+      <a class="btn btn-link btn-outline-secondary" [routerLinkActive]="'active'" [routerLink]="'debetreport'">
+        חובות
+      </a>
+    </nav>
+    <br>
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="col-sm-2">
+
+  </div>
+</div>
+<!-- <app-expens-report></app-expens-report>-->
+<!-- <app-historyreport></app-historyreport> -->

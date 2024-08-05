@@ -1,0 +1,16 @@
+
+<app-header [ngStyle]="{'position': 'fixed',  'z-index': '1000','width':'100%'}"></app-header>
+<div class="space">
+
+</div>
+<div class="row" id="my-body">
+    <div  class="col-sm-2" >   
+            <app-menu [ngStyle]="{'position':'sticky','top':'135px'}"></app-menu>
+    </div>
+    <div class="col-sm-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+<app-footer></app-footer>

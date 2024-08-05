@@ -1,0 +1,13 @@
+.row{
+    width: 99.9%;
+}
+#my-body{
+    margin-bottom: 80px;
+    
+}
+.space{
+    height: 150px;
+}
+.body{
+    overflow: auto;
+}

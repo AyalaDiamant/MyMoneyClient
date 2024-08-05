@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-header">
+        <h4>עיצוב האתר</h4>
+    </div>
+    <div class="card-body">
+        <form #contactForm="ngForm">
+            <div class="form-group">
+                <label for="headerColor">כותרת לאירגון שלך</label>
+                <input type="text" class="form-control" [(ngModel)]="currentDesign.title" placeholder="הכנס כותרת"
+                    name="tit" #tit="ngModel" />
+            </div>
+
+            <div class="form-group">
+                <label for="headerColor">סלוגן לאירגון שלך</label>
+                <input type="text" class="form-control" [(ngModel)]="currentDesign.slogan" placeholder="הכנס סלוגן"
+                    name="slo" #slo="ngModel" />
+            </div>
+
+            <div class="form-group row col-sm-4">
+                <label for="headerColor">צבע התפריט העליון</label>
+                <input type="color" class="form-control" [(ngModel)]="currentDesign.headerColor" placeholder="בחר צבע"
+                    name="colHeader" #colHeader="ngModel" />
+            </div>
+            <div class="form-group row col-sm-4">
+                <label for="headerColor">צבע הכותרת</label>
+                <input type="color" class="form-control" [(ngModel)]="currentDesign.textColor" placeholder="בחר צבע"
+                    name="colText" #colText="ngModel" />
+            </div>
+            <div class="form-group row col-sm-6">
+                <label for="headerColor">לוגו לאירגון שלך</label>
+                <app-upload [isShowDescription]='false' (onChangeFile)="finishSetFile($event)" #inputFile></app-upload>
+                <div class="form-group row col-sm-4">
+                    <img [src]="currentDesign.src" width="40">
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="row col-sm-1"></div>
+                <button class="btn btn-success  row col-sm-5" (click)="saveDesign()" 
+                [disabled]="(currentDesign.fileName =='' || currentDesign.headerColor == '' || currentDesign.slogan =='' ||currentDesign.textColor == '' ||currentDesign.title == '') ">שמור
+                עיצוב</button>
+                <div class="row col-sm-1"></div>
+                <button class="btn btn-success row col-sm-5" (click)="cancelDesign()">בטל
+                    שינויים</button>
+
+            </div>
+        </form>
+    </div>
+</div>

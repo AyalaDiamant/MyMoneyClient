@@ -1,0 +1,75 @@
+<h4>ברוך הבא לאזור האישי</h4>
+
+<form role="form" #loginForm="ngForm">
+
+    <br>
+    <div class="row">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"
+                        class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg>
+                </span>
+            </div>
+            <input type="email" required email class="form-control" #userName="ngModel" [(ngModel)]="loginUser.email"
+                name="userName" placeholder="דואר אלקטרוני">
+
+        </div>
+        <div *ngIf="userName.errors" class="text-danger">
+            <span *ngIf="userName.errors.required">*שדה חובה</span>
+            <span *ngIf="userName.errors.email">כתובת דוא"ל לא
+                תקינה</span>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"
+                        class="bi bi-lock-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                    </svg>
+                </span>
+            </div>
+            <!-- ng-keypress="signIn()" -->
+            <input (appOnEnter)="signIn()" type="password" required #password="ngModel" class="form-control" [(ngModel)]="loginUser.password"
+                name="password" minlength="4" placeholder="סיסמה"
+                >
+
+        </div>
+        <div *ngIf="password.errors" class="text-danger">
+            <span *ngIf="password.errors.required">*שדה חובה</span>
+            <span *ngIf="password.errors.minlength">סיסמה
+                קצרה מידי, צריך להכיל לפחות 4 תווים</span>
+        </div>
+    </div>
+
+    <div class="row checkbox">
+        <label>
+            <input type="checkbox" [(ngModel)]="loginUser.remember"  name="remember" />
+            זכור אותי
+        </label>
+    </div>
+    <div class="row form-group">
+        <button [disabled]="userName.invalid || password.invalid" type="button" class="btn btn-primary btn-block btn-lg"
+            (click)="signIn()">התחבר >>></button>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-6">
+            <a role="button" [routerLink]="'/account/forgot'">שכחתי סיסמא</a> |
+
+            <a role="button" [routerLink]="'/account/register'">משתמש חדש?</a>
+        </div>
+
+
+    </div>
+
+</form>

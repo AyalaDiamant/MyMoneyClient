@@ -1,0 +1,15 @@
+<h5>שחזור סיסמה</h5>
+<p>אנא הקלד את כתובת המייל עימה נרשמת למערכת</p>
+<br>
+<form>
+    <div class="row">
+        <input  (appOnEnter)="sendEmail()" type="text" class="form-control" required email [(ngModel)]="userEmail.from" name="uEmail" #uEmail="ngModel" placeholder="כתובת מייל">
+        <div *ngIf="uEmail.errors" class="text-danger">
+            <span *ngIf="uEmail.errors.required">*שדה חובה</span>
+            <span *ngIf="uEmail.errors.email">כתובת דוא"ל לא תקינה</span>
+        </div>
+    </div>
+    <div class="row ">
+        <button type="button" class="btn btn-primary btn-block btn-lg" [disabled]="uEmail.invalid" (click)="sendEmail()">שלח לי מייל</button>
+    </div>
+</form>

@@ -1,0 +1,21 @@
+.btn-primary {
+
+    background-color: rgb(165, 212, 165) !important;
+    border-color: rgb(165, 212, 165) !important;
+    color: black;
+}
+
+.accordion-button:focus {
+    background-color: rgb(165, 212, 165) !important;
+    border-color: rgb(165, 212, 165) !important;
+    color: black;
+
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: rgb(165, 212, 165) !important;
+    border-color: rgb(165, 212, 165) !important;
+    color: black;
+
+}
+

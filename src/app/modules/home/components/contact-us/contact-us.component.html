@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-sm-3">
+
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+        <h4>
+          דף יצירת קשר
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <form #contactForm="ngForm">
+            <div class="form-group col-sm-12">
+              <input type="text" class="form-control" required [(ngModel)]="contact.subject" #subject="ngModel"
+                name="subject" placeholder="הכנס כותרת" />
+
+              <span *ngIf=" contact.subject == null || contact.subject==' ' " class="text-danger">*שדה חובה</span>
+              <br *ngIf=" contact.subject != null && contact.subject !=' ' " >
+            </div>
+            <div class="col-sm-12">
+              <input type="text" class="form-control" [(ngModel)]="contact.name" #cName="ngModel" name="cName"
+                placeholder="שם הפונה" />
+            </div> <br>
+
+            <div class="col-sm-12">
+              <input type="text" class="form-control" required email [(ngModel)]="contact.from" #from="ngModel"
+                name="from" placeholder="כתובת מייל" />
+            </div> <br>
+
+            <div *ngIf="from.errors" class="text-danger">
+              <span *ngIf="from.errors.required">*שדה חובה</span>
+              <span *ngIf="from.errors.email">כתובת דוא"ל לא תקינה</span>
+            </div>
+
+            <div class="col-sm-12">
+              <textarea (appOnEnter)="send()" cols="15" rows="8" class="form-control" required
+                [(ngModel)]="contact.body" #body="ngModel" name="body" placeholder="תוכן הפניה... "></textarea>
+
+              <span *ngIf="body.invalid || contact.body==null || contact.body=='' " class="text-danger">*שדה חובה</span>
+            </div> 
+            <br *ngIf=" contact.body != null && contact.body !=' ' " >
+
+
+            <div class="row form-group">
+              <button class="btn btn-success form-control" (click)="send()"
+                [disabled]="contact.subject==null || from.invalid || contact.body==null">שלח
+                פניה</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- // התחלה הגירסא הטובה -->
+  <!-- </div>
+  <div class="card my-card">
+    <div class="card-header">
+      <h4>
+        דף יצירת קשר
+       
+  
+      </h4>
+    </div>
+    <div class="card-body">
+  
+      <div class="jumbotron">
+        <form #contactForm="ngForm">
+          <div class="row">
+            <div class="col-sm-3 ">{{ contact.subject}}</div>
+            <div class="col-sm-6 ">
+              <div class="row form-group">
+                <input type="text" class="form-control" required [(ngModel)]="contact.subject" #subject="ngModel"
+                  name="subject" placeholder="הכנס כותרת" />
+  
+                <span *ngIf=" contact.subject == null || contact.subject==' ' "  class="text-danger">*שדה חובה</span>
+              </div>
+              <div class="row form-group">
+                <input type="text" class="form-control" [(ngModel)]="contact.name" #cName="ngModel" name="cName"
+                  placeholder="שם הפונה" />
+              </div>
+              <div class="row form-group">
+                <input type="text" class="form-control" required email [(ngModel)]="contact.from" #from="ngModel"
+                  name="from" placeholder="כתובת מייל" />
+                <div *ngIf="from.errors" class="text-danger">
+                  <span *ngIf="from.errors.required">*שדה חובה</span>
+                  <span *ngIf="from.errors.email">כתובת דוא"ל לא תקינה</span>
+  
+                </div>
+              </div>
+              <div class="row form-group">
+                <textarea  (appOnEnter)="send()" cols="15" rows="8" class="form-control" required [(ngModel)]="contact.body" #body="ngModel"
+                  name="body" placeholder="תוכן הפניה... "></textarea>
+  
+                <span *ngIf="body.invalid || contact.body==null || contact.body=='' " class="text-danger">*שדה חובה</span>
+              </div>
+              <div class="row form-group">
+                <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="send()"
+                  [disabled]="contactForm.invalid">שלח
+                  פניה</button>
+              </div>
+  
+            </div>
+          </div>
+  
+        </form>
+      </div>
+    </div>
+    <div class="card-footer bg-green">
+  
+    </div> -->
+  <!-- סוף הגירסא הטובה -->
+
+
+
+
+
+
+  <!-- <p (appBackgroundColor)="myAlert('hi!!!!!')" style="width: 300px;">הדגמת directive צבע רקע</p>
+
+<p (appBackgroundColor)="myAlert('yesssss!!!!!')" style="width: 300px;">הדגמת directive צבע רקע</p>
+
+<input name="color" value="'blue'" (click)="color='blue'"  type="radio">כחול
+<input name="color" value="'black'" (click)="color='black'"type="radio">שחור
+<input name="color" value="'green'"(click)="color='green'" type="radio">ירוק -->

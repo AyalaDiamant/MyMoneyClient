@@ -1,0 +1,47 @@
+<span>מקרא סוג השינוי:
+    <span class="update">עריכה</span>
+    <span class="delete">מחיקה</span>
+    <span class="isNotActive">לא פעיל</span>
+</span>
+<table class="table">
+    <thead>
+        <tr class="bg-green">
+            <th>
+                תאריך שינוי
+            </th>
+            <th>
+                תחום מקורי
+            </th>
+            <th>
+                תחום חדש
+            </th>
+            <th>
+                סכום מקורי
+            </th>
+            <th>
+                סכום חדש
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <h5 *ngIf="historys.length==0">אין נתונים להצגה</h5>
+        <tr *ngFor="let h of historys"
+            [ngClass]="{ 'update' : h.actionOption==1 , 'delete': h.actionOption==2 ,'isNotActive': h.actionOption==3}">
+            <td>
+                {{h.dateofChange | date:"dd/MM/yyyy"}}
+            </td>
+            <td>
+                {{h.oldDomain}}
+            </td>
+            <td>
+                {{h.newDomain}}
+            </td>
+            <td>
+                {{h.oldAmount}}
+            </td>
+            <td>
+                {{h.newAmount}}
+            </td>
+        </tr>
+    </tbody>
+</table>

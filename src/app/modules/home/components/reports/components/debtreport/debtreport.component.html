@@ -1,0 +1,76 @@
+<div class="table">
+    <table class="table">
+        <thead >
+            <tr class="bg-green">
+                <th>
+                    <b> תיאור</b>
+                    <br>
+                    <input [(ngModel)]="debtSearch.description" type="text" class="searchInput"
+                        (ngModelChange)="getDebts()">
+                </th>
+                <th>
+                    <b> מספר תשלומים</b>
+                    <br>
+                    <input [(ngModel)]="debtSearch.payments" type="text" class="searchInput"
+                        (ngModelChange)="getDebts()">
+                </th>
+                <th>
+                    <b> רמת דחיפות</b>
+                    <br>
+                    <input [(ngModel)]="debtSearch.urgency" type="text" class="searchInput"
+                        (ngModelChange)="getDebts()">
+                </th>
+                <th>
+                    <b> סכום</b>
+                    <br>
+                    <input [(ngModel)]="debtSearch.sum" type="text" class="searchInput" (ngModelChange)="getDebts()">
+                </th>
+                <th>
+                    <b> שייך להוצאה</b>
+                    <br>
+                    <!-- <input [(ngModel)]="debtSearch.AreaId" type="text" class="searchInput" (ngModelChange)="getDebts()"> -->
+
+                </th>
+                <th>
+                    <b> יתרה</b>
+                    <br>
+                    <input class="searchNotInput">
+
+                    <!-- <input type="text" class="searchInput"> -->
+                </th>
+            </tr>
+        </thead>
+        <tbody  >
+            <h5 *ngIf="debts.length==0">אין נתונים להצגה</h5>
+            <tr *ngFor="let d of debts" [ngClass]="{'color': d.sum === 0}" id="scroll">
+                <td>
+                    {{d.description}}
+                </td>
+                <td>
+                    {{d.payments}}
+                </td>
+                <td>
+                    {{d.urgency.name}}
+                </td>
+                <td>
+                    {{d.sum}}
+                </td>
+                <td>
+                    {{d.areaid.description}}
+                </td>
+                <td >
+                    {{d.sum}}
+                </td>
+            </tr>
+        </tbody>
+        <tr class="bg-green" >
+            <th>ייתרה כללית</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th><h5>{{debts|sum| number}}</h5></th>
+        </tr>
+
+    </table>
+</div>

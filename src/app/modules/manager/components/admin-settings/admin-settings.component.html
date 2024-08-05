@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-sm-4">
+        <app-list [title]="'סוגי משתמשים'" [allowUpdate]="false" [list]="lists.userTypes" [tableCode]="userTypeCode"
+            [type]="null"></app-list>
+    </div>
+    <div class="col-sm-4">
+        <app-list [title]="'תחומי הכנסות גלובלים'" [allowUpdate]="true" [list]="'lists.areas|sortByType:1' "
+            [tableCode]="areaCode" [type]="1"></app-list>
+    </div>
+    <div class="col-sm-4">
+        <app-list [title]="'תחומי הוצאות גלובלים'" [allowUpdate]="true" [list]="'lists.areas|sortByType:2' "
+            [tableCode]="areaCode" [type]="2"></app-list>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <app-list [title]="'ערים'" [list]="lists.cities" [allowUpdate]="true" [tableCode]="citiesCode"
+            [type]="null"></app-list>
+    </div>
+    <div class="col-sm-4">
+        <app-list [title]="'אופני תשלום'" [list]="lists.payOption" [allowUpdate]="true" [tableCode]="payOptionCode"
+            [type]="null"></app-list>
+    </div>
+    <div class="col-sm-4">
+        <app-list [title]="'רמת דחיפות'" [list]="lists.urgencyDebts" [allowUpdate]="true" [tableCode]="urgencyDebtCode"
+            [type]="null"></app-list>
+    </div>
+    
+    <div class="col-sm-4">
+        <app-list [title]="'סטטוס'" [list]="lists.statuses" [allowUpdate]="true" [tableCode]="statusCode"
+
+            [type]="null"></app-list>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+.scrl{
+    margin-bottom: 35px;
+    height: 500px;
+    overflow: auto;
+}
+li:hover{
+    background-color: rgb(225, 241, 225) ;
+}
+li:nth-child(odd)  {
+    background-color: rgb(235, 246, 235) ;
+
+}
+button{
+    margin-left: 2px;
+}
+.card{
+    min-height: 450px;
+}
+.list-group{
+    padding-right: 0px;
+    padding-left: 0px;
+
+}
+.card-footer.bg-green{
+    height: 44px;
+}
+.card-body{
+    max-height: 609px;
+}
+.danger{
+    border: red solid 1px;
+}

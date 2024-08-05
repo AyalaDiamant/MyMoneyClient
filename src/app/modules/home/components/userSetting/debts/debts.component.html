@@ -1,0 +1,197 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h4>חובות</h4>
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-secondary" (click)="changeMode()" title="הוסף חדש">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <b class="b-point" (click)="propToSort='isActive'">פעיל</b>
+                            </div>
+                            <div class="col-sm-2">
+                                <b class="b-point" (click)="propToSort='urgency'">רמת דחיפות</b>
+                            </div>
+                            <div class="col-sm-2">
+                                <b class="b-point" (click)="propToSort='sum'">סכום</b>
+                            </div>
+                            <div class="col-sm-2">
+                                <b class="b-point" (click)="propToSort='payments'">תשלומים</b>
+                            </div>
+                            <div class="col-sm-2">
+                                <b class="b-point" >קשר להוצאה</b>
+                            </div>
+                            <div class="col-sm-3">
+                                <b class="b-point" (click)="propToSort='description'">תיאור</b>
+                            </div>
+                         
+                        </div>
+                    </li>
+                    <li class="list-group-item" *ngIf="addMode">
+                        <div class="row">
+                            <!-- <div class="col-sm-1">
+                                <input type="checkbox" [(ngModel)]="newDebt.isActive">פעיל
+                            </div> -->
+                            <div class="col-sm-2">
+                                <select class="form-control" required [ngClass]="{'danger':newDebt.urgency.id<1}"
+                                    [(ngModel)]="newDebt.urgency.id">
+                                    <option selected disabled [ngValue]="0">רמת דחיפות</option>
+                                    <option *ngFor="let urgency of urgencyies" [ngValue]="urgency.id">{{urgency.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" required
+                                    [ngClass]="{'danger':newDebt.sum==null || newDebt.sum < 1}"
+                                    [(ngModel)]="newDebt.sum" placeholder="סכום" min="1">
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="number" required
+                                    [ngClass]="{'danger':newDebt.payments < 1}"
+                                    [(ngModel)]="newDebt.payments" placeholder="1" min="1" value="1">
+                                <!-- [readonly]="true" value="1" -->
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control"  
+                                    [(ngModel)]="newDebt.areaid" >
+                                    <option selected disabled [ngValue]="0">קשר להוצאה</option>
+                                    <option *ngFor="let single of areas" [ngValue]="single">
+                                        {{single.description}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text" required [(ngModel)]="newDebt.description"
+                                    placeholder="תיאור">
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-success"
+                                    [disabled]="((newDebt.urgency.id < 1)|| (newDebt.sum==null || newDebt.sum<1) || (newDebt.payments==null || newDebt.payments<1))"
+                                    (click)="addDebt()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-save" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="scrl" style="text-align: center;">
+                    <span *ngIf="debts.length==0">אין נתונים להצגה</span>
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let i of debts | sortProp : propToSort">
+                            <div class="row" *ngIf="!i.inEdit">
+                                <div class="col-sm-1">
+                                    <div [ngClass]="{'text-danger':!i.isActive, 'text-success':i.isActive}">
+                                        {{i.isActive | boolConvert}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    {{i.urgency.name}}
+                                </div>
+                                <div class="col-sm-2">
+                                    {{i.sum}}
+                                </div>
+                                <div class="col-sm-2">
+                                    {{i.payments}}
+                                </div>
+                                <div class="col-sm-2">
+                             {{i.areaid.description}}
+                                </div>
+                                <div class="col-sm-1">
+                                    {{i.description}}
+                                </div>
+                        
+                                <div class="col-sm-2">
+                                    <button class="btn btn-primary" title="עריכה" (click)="editDebt(i)">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                        </svg>
+                                    </button>
+                                    <button class="btn btn-danger" title="מחיקה" (click)="deleteDebt(i.id)">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z">
+                                            </path>
+                                            <path fill-rule="evenodd"
+                                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="i.inEdit">
+                                <div class="col-sm-1">
+                                    <input type="checkbox" [(ngModel)]="i.isActive">
+                                </div>
+                                <div class="col-sm-2">
+                                    <select class="form-control" required [ngClass]="{'danger': i.urgency.id==null}"
+                                        [(ngModel)]="i.urgency.id">
+                                        <option *ngFor="let urgency of urgencyies" [ngValue]="urgency.id">
+                                            {{urgency.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" min="1" required
+                                        [ngClass]="{'danger': i.sum<1 || i.sum==null}" [(ngModel)]="i.sum" >
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" min="1" required
+                                        [ngClass]="{'danger': i.payments<1 || i.payments==null}"
+                                        [(ngModel)]="i.payments">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control"   [(ngModel)]="i.description">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-success" title="שמירה"
+                                        [disabled]="(i.urgency.id==null) || (i.sum<1 || i.sum==null) || (i.payments<1 || i.payments==null)"
+                                        (click)="save(i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                                        </svg>
+                                    </button>
+                                    <button class="btn btn-danger" title="ביטול" (click)="cancel(i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                            <path
+                                                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer bg-green">
+
+            </div>
+        </div>
+    </div>
+</div>

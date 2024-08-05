@@ -1,0 +1,48 @@
+<div class="mt-1">
+    <h4>הגדרות</h4>
+    <div class="row" (click)="expandedRevenue=!expandedRevenue">
+        <div class="col-sm-3">הצגת הגדרת הכנסות מורחבת
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                [ngClass]="{'bi bi-caret-down-fill':expandedRevenue , 'bi bi-caret-up-fill':!expandedRevenue }"
+                viewBox="0 0 16 16">
+                <path *ngIf="!expandedRevenue"
+                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                <path *ngIf="expandedRevenue"
+                    d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+            </svg>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="expandedRevenue">
+    <div class="col-sm-2 mt-2">
+        <label>
+            <input type="checkbox" [(ngModel)]="daysHours" name="hours" #hours="ngModel">לפי ימים ושעות
+        </label>
+    </div>
+    <div class="col-sm-2 mt-2">
+        <label>
+            <input type="checkbox" [(ngModel)]="productForDay" name="product" #product="ngModel">לפי כמות מוצר ביום
+        </label>
+    </div>
+
+    <hr>
+
+    <app-revenue-by-days *ngIf="daysHours"></app-revenue-by-days>
+    <app-revenue-by-product *ngIf="productForDay"></app-revenue-by-product>
+
+</div>
+
+<hr *ngIf="!expandedRevenue">
+
+<div class="row">
+    <div class="col-sm-12">
+        <app-area [type]="1"></app-area>
+    </div>
+    <div class="col-sm-12">
+        <app-area [type]="2"></app-area>
+    </div>
+    <div class="col-sm-12">
+        <app-debts></app-debts>
+    </div>
+</div>

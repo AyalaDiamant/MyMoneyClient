@@ -1,0 +1,8 @@
+video{
+    margin-top: 80px;
+    border-radius: 12px;
+    width: 100%;
+border: 10px solid rgb(50, 105, 67);
+
+box-shadow: 4px 5px 3px gray;
+}

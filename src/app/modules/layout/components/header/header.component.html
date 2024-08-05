@@ -1,0 +1,143 @@
+<nav class="navbar navbar-expand-lg" [ngClass]="{'navbar-dark bg-dark': !currentDesign.headerColor}"
+  [ngStyle]="{'background-color': currentDesign?.headerColor}">
+
+  <!-- את זה אילה צריכה למחוק -->
+
+  <!-- <div class="col-sm-1 ">
+    <a [routerLink]="'/account/first'">
+      <img src="assets\imgs\logo.jpg" width="120" style="border: solid 3px green;" /></a>
+  </div>
+  <div class="col-sm-3">
+    <a [routerLink]="'/account/first'">
+      <h1>תקציב לי</h1>
+    </a>
+    <a [routerLink]="'/account/first'">
+      <h3>המערכת שתסדר לכם את החיים!</h3>
+    </a>
+  </div> -->
+
+  <!-- זה שייך לאילה עבדתי על זה הרבה לא למחוק זה באמצע!! -->
+
+  <!-- תיעוד -->
+  <!-- שמגיע מעמוד העיצוב currentDesign לפי ה header עיצוב ה  -->
+  <div class="col-sm-1">
+    <a [routerLink]="'/account/first'">
+      <img
+        [src]="currentDesign?.imageContent ? 'data:image/jpeg;base64,' + currentDesign.imageContent : 'assets/imgs/logo.jpg'"
+        width="120" style="border: solid 3px" [ngStyle]=" {'border-color': currentDesign?.textColor || '#008000'}" />
+    </a>
+  </div>
+  <div class="col-sm-3">
+    <a [routerLink]="'/account/first'">
+      <h1 [ngStyle]="{'color': currentDesign?.textColor}">{{ currentDesign?.title || 'תקציב לי' }}</h1>
+    </a>
+    <a [routerLink]="'/account/first'">
+      <h3 [ngStyle]="{'color': currentDesign?.textColor}">{{ currentDesign?.slogan || 'המערכת שתסדר לכם את החיים!' }}
+      </h3>
+    </a>
+  </div>
+
+
+  <div class="col-sm-2">
+    <div id="notActive" *ngIf="isNotActive">
+      משתמש הפך ל"לא פעיל". הנתונים שהזנתם נשמרו במערכת ותוכלו להמשיך להשתמש בהם לאחר העברת תשלום
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+
+
+
+    <div class="left">
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="btn btn-link  btn-outline-secondary " [routerLinkActive]="'active'"
+              [routerLink]="'/account/first'">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"
+                [routerLinkActive]="'active'">
+                <path
+                  d="M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z"
+                  fill="#c3c3c5" />
+              </svg>
+              דף הבית
+            </a>
+
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-link  btn-outline-secondary " [routerLinkActive]="'active'" [routerLink]="'/home/help'">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                <path
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
+                  fill="#c3c3c5" />
+              </svg>
+              עזרה
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-link  btn-outline-secondary " [routerLinkActive]="'active'"
+              [routerLink]="'/home/contact'">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                <path
+                  d="M7.115.65a1.752 1.752 0 0 1 1.77 0l6.25 3.663c.536.314.865.889.865 1.51v6.427A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25V5.823c0-.621.33-1.196.865-1.51Zm1.011 1.293a.252.252 0 0 0-.252 0l-5.72 3.353L6.468 7.76a2.748 2.748 0 0 1 3.066 0l4.312-2.464-5.719-3.353ZM13.15 12.5 8.772 9.06a1.25 1.25 0 0 0-1.544 0L2.85 12.5Zm1.35-5.85-3.687 2.106 3.687 2.897ZM5.187 8.756 1.5 6.65v5.003Z"
+                  fill="#c3c3c5" />
+              </svg>
+              צור קשר
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="btn btn-link btn-outline-secondary" [routerLinkActive]="'active'" [routerLink]="'/home/payment'">
+
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                <path
+                  d="M8 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM1.5 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm13 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+                  fill="#c3c3c5" />
+              </svg>
+              לתשלום
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class=" btn-link btn btn-outline-secondary navbar-brand dropdown-toggle" href="#" id="navbarDropdown"
+              role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                <path
+                  d="M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"
+                  fill="#c3c3c5" />
+              </svg>לאזור האישי
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="'/home/dashboard'">לאזור האישי</a>
+              <a class="dropdown-item" [routerLink]="'/account/login'">לדף כניסה</a>
+              <a *ngIf="isAthenticate" class="dropdown-item" [routerLink]="['/account/register',id]">עדכון פרטים</a>
+              <div class="dropdown-divider" *ngIf="!isSimpleUser"></div>
+              <a class="dropdown-item" *ngIf="!isSimpleUser" [routerLink]="'/account/register'"> משתמש חדש? לרישום
+                >></a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-link  btn-outline-secondary" *ngIf="isAthenticate" (click)="logOut()">יציאה
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                <path
+                  d="M7.78 12.53a.75.75 0 0 1-1.06 0L2.47 8.28a.75.75 0 0 1 0-1.06l4.25-4.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L4.81 7h7.44a.75.75 0 0 1 0 1.5H4.81l2.97 2.97a.75.75 0 0 1 0 1.06Z"
+                  fill="#c3c3c5" />
+              </svg>
+            </a>
+          </li>
+
+        </ul>
+
+
+      </div>
+
+
+      <div class="active" id="helloUser" *ngIf="isAthenticate">שלום, {{name}}</div>
+    </div>
+
+
+  </div>
+
+
+
+</nav>

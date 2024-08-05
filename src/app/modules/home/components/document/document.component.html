@@ -1,0 +1,152 @@
+<div class="card">
+    <div class="card-header">
+        <h4>מסמכים</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <p>העלאת קובץ</p>
+            <app-upload [isShowDescription]='true' [urlUpload]='urlAddDocument' (refresh)="getDocuments()"></app-upload>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <br>
+                <ul class="list-group" id="scroll">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <b>
+                                <b>
+                                שם הקובץ
+                            </b>
+                            <br>
+                            <input type="text" class="searchInput" [(ngModel)]="searchDocument.name" (ngModelChange)="getDocuments()">
+                            </b>
+                            <input type="text" class="searchInput" [(ngModel)]="searchDocs.name" (ngModelChange)="getDocuments()">
+                            </div>
+
+                            <div class="col-sm-3">
+                                <b>
+                                תאור
+                            </b>
+                            <br>
+                            <input type="text" class="searchInput" [(ngModel)]="searchDocument.description" (ngModelChange)="getDocuments()">
+                            </div>
+                            <div class="col-sm-3">
+                                <b>
+                                תצוגה מקדימה
+                            </b>
+                            </div>
+                            <div class="col-sm-3">
+                                פעולות
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item" *ngFor="let d of docList">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{d.fileName}}
+                            </div>
+                            <div class="col-sm-3">
+                                <span *ngIf="!d.isEdit">{{d.description}}</span>
+                                <div *ngIf="d.isEdit">
+                                    <input class="form-control" [(ngModel)]="d.description">
+                                    <span *ngIf="d.description == ''" class="text-danger">* שדה חובה</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <img [src]="d.srcPreview" width="70" >
+                             
+
+                            </div>
+                            <div class="col-sm-3">
+
+
+                                <div *ngIf="!d.isEdit">
+                                    <button class="btn btn-primary" (click)="editDocument(d)">
+                                        <svg width="1em"
+                                            height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                        </svg>
+                                    </button>
+
+                                    <a class="btn btn-secondary" [href]="d.src" target="_blank" style="margin: 1%">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"  *ngIf="d.contentType==='showBrowser'">
+                                            <path
+                                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                            <path
+                                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                                        </svg>
+                                        <svg *ngIf="d.contentType==='download'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                                          </svg>
+                                    </a>
+                                    <button class="btn btn-danger" (click)="deleteDocument(d)" *ngIf="!d.isEdit">
+                                        <svg width="1em"
+                                        height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z">
+                                        </path>
+                                        <path fill-rule="evenodd"
+                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z">
+                                        </path>
+                                    </svg>
+                                    </button>
+
+                                </div>
+                                <div id="save" *ngIf="d.isEdit">
+                                    <button class="btn btn-success" title="שמור" [disabled]="d.description==''"
+                                        (click)="save(d)" *ngIf="d.isEdit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                                        </svg>
+                                    </button>
+
+                                    <a class="btn btn-secondary" [href]="d.src" target="_blank" style="margin: 1%">
+
+                                  
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"  *ngIf="d.contentType==='showBrowser'">
+                                            <path
+                                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                            <path
+                                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                                        </svg>
+                                        <svg *ngIf="d.contentType==='download'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                                          </svg>
+                                    </a>
+                                    <button class="btn btn-danger" title="ביטול"     (click)="cancel(d)"
+                                        >
+                                      
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                            <path
+                                                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                        </svg>
+                                    </button>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
