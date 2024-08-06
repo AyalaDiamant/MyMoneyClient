@@ -125,7 +125,6 @@
 
 
         </div>
-
         <div class="text-danger">
             <span *ngIf="user.userType.id==0" class="text-danger">*שדה חובה</span>
         </div>
@@ -143,7 +142,8 @@
             </div>
             <select *ngIf="user.userType.id==5" class="form-control" #selecLenders="ngModel" name="selecLenders"
                 [(ngModel)]="user.lender.id" (ngModelChange)="changeLender($event)">
-                <option selected [ngValue]="0" disabled>בחר מלווה</option>
+                <option selected [ngValue]="undefined" disabled>בחר מלווה</option>
+                <!-- [ngValue]="0" -->
                 <option *ngFor="let lend of lenders" [ngValue]="lend.id">{{lend.name}}</option>
             </select>
             <select *ngIf="user.userType.id==2" class="form-control" #selecManager="ngModel" name="selecManager"
