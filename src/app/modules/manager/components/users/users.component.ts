@@ -44,7 +44,7 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    this.http.post(this.root + 'Users/GetUsers', this.userSearch).subscribe((res: GResult<User[]>) => {
+    this.http.post(this.root + 'Users/GetUsers', this.userSearch).subscribe((res: GResult<User[]>) => {    
       this.users = res.value;
     });
   }

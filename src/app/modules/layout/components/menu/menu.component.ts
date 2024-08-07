@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
   // public isManager = this.auth.getPermissionType() == 1;
   // public isManager = this.auth.getPermissionType() == userType.systemAdministrator;
   // public isManagerIrgun = this.auth.getPermissionType() == userType.lendersManager;
-  public isPermission=this.auth.isPermission();
+  public isPermission = this.auth.isPermission();
   public isLender = this.auth.isLender();
   public isManager = this.auth.isManager();
 
