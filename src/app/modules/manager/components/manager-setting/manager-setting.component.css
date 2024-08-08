@@ -1,0 +1,19 @@
+.organization-card {
+    border: 1px solid #ddd; /* גבול דק סביב הריבוע */
+    border-radius: 8px; /* פינות מעוגלות */
+    padding: 20px; /* רווח פנימי */
+    background-color: #f9f9f9; /* רקע רך */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* צל קל */
+    margin-bottom: 20px; /* רווח תחתון */
+}
+
+.organization-detail {
+    margin-bottom: 10px; /* רווח בין השורות */
+    font-size: 16px; /* גודל פונט */
+    color: #333; /* צבע טקסט */
+}
+
+.organization-detail .label {
+    font-weight: bold; /* הדגשה לתווית */
+    color: #2a2a2a; /* צבע תווית */
+}

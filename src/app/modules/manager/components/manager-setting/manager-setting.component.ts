@@ -4,26 +4,42 @@ import { AlertService } from 'src/app/modules/infra/services/alert.service';
 import { environment } from 'src/environments/environment';
 import { ManagerSetting } from 'src/app/types/manager-setting';
 import { GResult, Result } from 'src/app/types/result';
+import { AuthService } from 'src/app/modules/account/services/auth.service';
+import { User } from 'src/app/types/user';
+import { UsersComponent } from '../users/users.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-manager-setting',
   templateUrl: './manager-setting.component.html',
   styleUrls: ['./manager-setting.component.css']
 })
-export class ManagerSettingsComponent implements OnInit {
+export class ManagerSettingComponent implements OnInit {
   // בעקרון אמור ללכת לקונטרולר חדש שיצרתי אבל משום מה עושה מלא בעיות
   // אז שלחתי לקונטרולר שהיה קיים צריך לשנות תא זה
   root: string = environment.rootUrl + 'ManagerDesign/';
   managerSetting: ManagerSetting = new ManagerSetting();
   managerSettingList: ManagerSetting[];
+  title: string = "הארגונים תחתיך";
+  findOrganization: ManagerSetting = new ManagerSetting()
+  isShow: boolean = false;
+  thisManager: User;
 
   constructor(
     private http: HttpClient,
-    private alert: AlertService
+    private alert: AlertService,
+    private auth: AuthService,
+    private userService: UserService
   ) { }
+
+  public isPermission = this.auth.isPermission();
+
 
   ngOnInit(): void {
     this.getManagerSetting();
+    this.userService.fetchUsers();
+
+
   }
 
   getManagerSetting() {
@@ -32,6 +48,7 @@ export class ManagerSettingsComponent implements OnInit {
         this.managerSettingList = res.value;
         // אם זה פרמטר אחד ממלא אותו בטופס
         if (this.managerSettingList.length == 1) {
+          this.title = "הגדרות הארגון שלך"
           this.managerSettingList.forEach(element => {
             this.managerSetting.adress = element.adress;
             this.managerSetting.contactMen = element.contactMen;
@@ -62,6 +79,14 @@ export class ManagerSettingsComponent implements OnInit {
 
   cancel() {
     this.getManagerSetting();
+  }
+
+  showOrganizationDetails(id: number) {
+    this.findOrganization = this.managerSettingList.find(item => item.id == id) || new ManagerSetting();
+    this.isShow = !this.isShow;
+    this.thisManager = this.userService.getManagerById(this.findOrganization.managerId);
+    console.log( this.thisManager,' this.thisManager');
+    
   }
 }
 

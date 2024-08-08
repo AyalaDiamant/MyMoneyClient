@@ -11,11 +11,11 @@ import { AdminSettingsComponent } from './components/admin-settings/admin-settin
 import { SortArrPipeManager } from './pipes/sort-arrMennager.pipe';
 import { IsPermissionGuard } from '../infra/services/is-permission.guard';
 import { WebsiteDesignComponent } from './components/website-design/website-design.component';
-import { ManagerSettingsComponent } from './components/manager-setting/manager-setting.component';
+import { ManagerSettingComponent } from './components/manager-setting/manager-setting.component';
 
 
 @NgModule({
-  declarations: [ UsersComponent, BoolConvertPipe, UserTypePipe, SortActiveUserPipe,SortArrPipeManager, AdminSettingsComponent, WebsiteDesignComponent, ManagerSettingsComponent],
+  declarations: [ UsersComponent, BoolConvertPipe, UserTypePipe, SortActiveUserPipe,SortArrPipeManager, AdminSettingsComponent, WebsiteDesignComponent, ManagerSettingComponent],
   imports: [
     CommonModule,
     InfraModule.forRoot(),
@@ -23,7 +23,7 @@ import { ManagerSettingsComponent } from './components/manager-setting/manager-s
       {path : 'users',component:UsersComponent,canActivate:[IsPermissionGuard]},
       {path : 'settings',component:AdminSettingsComponent,canActivate:[IsManagerGuard]},
       {path : 'website-design',component:WebsiteDesignComponent,canActivate:[IsManagerGuard]},
-      {path : 'manager-setting',component:ManagerSettingsComponent,canActivate:[IsManagerGuard]}
+      {path : 'manager-setting',component:ManagerSettingComponent,canActivate:[IsManagerGuard]}
     ])
   ]
 })

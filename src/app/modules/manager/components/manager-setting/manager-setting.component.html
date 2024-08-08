@@ -1,42 +1,74 @@
 <div class="card">
-    <div class="card-header">
-      <h4>הגדרות הארגון שלך</h4>
+  <div class="card-header">
+    <h4>{{title}}</h4>
+  </div>
+  <div class="card-body" *ngIf="!isPermission">
+    <form #contactForm="ngForm">
+      <div class="row">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" [(ngModel)]="managerSetting.organizationName" placeholder="שם הארגון"
+            name="organizationName" required>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" [(ngModel)]="managerSetting.adress" placeholder="כתובת" name="adress">
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" [(ngModel)]="managerSetting.contactMen" placeholder="איש קשר"
+            name="contactMen">
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" [(ngModel)]="managerSetting.phon" placeholder="טלפון" name="phon">
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" [(ngModel)]="managerSetting.email" placeholder="מייל" name="email">
+        </div>
+      </div>
+      <div>
+        <label>סוג הארגון</label>
+        <select class="form-control" [(ngModel)]="managerSetting.organizationType" name="organizationType" required>
+          <option value="1">ארגון פיננסי</option>
+          <option value="2">ארגון צדקה</option>
+        </select>
+      </div>
+      <br>
+      <div class="row form-group">
+        <div class="btn-group">
+          <button type="button" class="btn btn-success  row col-sm-5" (click)="saveManagerSetting()">שמור</button>
+          <div class="row col-sm-1"></div>
+          <button type="button" class="btn btn-success row col-sm-5" (click)="cancel()">ביטול</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-body" *ngIf="isPermission">
+    <div *ngFor="let mSetting of managerSettingList">
+      <span>{{mSetting.organizationName}}</span>
+      <span (click)="showOrganizationDetails(mSetting.id)"> להצגת פרטי הארגון </span>
     </div>
-    <div class="card-body">
-        <form #contactForm="ngForm">
-            <div class="row">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" [(ngModel)]="managerSetting.organizationName" placeholder="שם הארגון" name="organizationName" required>
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" [(ngModel)]="managerSetting.adress" placeholder="כתובת" name="adress">
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" [(ngModel)]="managerSetting.contactMen" placeholder="איש קשר" name="contactMen">
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" [(ngModel)]="managerSetting.phon" placeholder="טלפון" name="phon">
-          </div>
-          <div class="input-group mb-3">
-            <input type="email" class="form-control" [(ngModel)]="managerSetting.email" placeholder="מייל" name="email">
-          </div>
-        </div>
-        <div>
-          <label>סוג הארגון</label>
-          <select class="form-control" [(ngModel)]="managerSetting.organizationType" name="organizationType" required>
-            <option value="1">ארגון פיננסי</option>
-            <option value="2">ארגון צדקה</option>
-          </select>
-        </div>
+    <div class="card-body organization-card" *ngIf="isShow">
+      שם: {{findOrganization.organizationName}}
+      <br>
+      כתובת: {{findOrganization.adress}}
+      <br>
+      איש קשר: {{findOrganization.contactMen}}
+      <br>
+      טלפון ליצירת קשר: {{findOrganization.phon}}
+      <br>
+      אימייל ליצירת קשר: {{findOrganization.email}}
+      <br>
+      סוג הארגון: <span *ngIf="findOrganization.organizationType == 1">ארגון פיננסי</span>
+      <span *ngIf="findOrganization.organizationType == 2">ארגון צדקה</span>
+      <br>
+      מנהל הארגון:
+      <br>
+      <div>
+        שם: {{thisManager.firstName}} {{thisManager.lastName}}
         <br>
-        <div class="row form-group">
-          <div class="btn-group">
-            <button type="button" class="btn btn-success  row col-sm-5" (click)="saveManagerSetting()">שמור</button>
-            <div class="row col-sm-1"></div>
-            <button type="button" class="btn btn-success row col-sm-5" (click)="cancel()">ביטול</button>
-          </div>
-        </div>
-      </form>
+        מייל: {{thisManager.email}}
+        <br>
+        טל: {{thisManager.phone}}
+        <br>
+      </div>
     </div>
   </div>
-  
+</div>

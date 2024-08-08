@@ -9,6 +9,7 @@ import { Lists } from 'src/app/types/lists';
 import { GResult, Result } from 'src/app/types/result';
 import {  User, UserSearch } from 'src/app/types/user';
 import { environment } from 'src/environments/environment';
+import { UserService } from '../../services/user.service'; 
 
 @Component({
   selector: 'app-users',
@@ -34,7 +35,12 @@ export class UsersComponent implements OnInit {
  
 
 
-  constructor(private http: HttpClient, private alert: AlertService, private route: Router) { }
+  constructor(
+    private http: HttpClient,
+    private alert: AlertService,
+    private route: Router,
+    private userService: UserService
+  ) { }
 
   //  בעמוד זה יש שורות מוסלשות כי רחל אמרה שנטפל בקוד הזה בשבוע של ההרשאות לא למחוק פנינה
 
@@ -166,6 +172,14 @@ export class UsersComponent implements OnInit {
     else if (type == 3) {
       this.userSearch.usersType = new IdName();
       this.userSearch.usersUnderLender = new IdName();
+    }
+  }
+
+  viewManagerDetails(userId: number) {
+    // חפש את המנהל על פי ה-ID
+    const manager = this.users.find(user => user.id === userId);
+    if (manager) {
+      this.userService.setUser(manager); // הגדר את המנהל בשירות
     }
   }
 }
