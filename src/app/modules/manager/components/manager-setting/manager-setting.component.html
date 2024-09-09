@@ -47,23 +47,31 @@
         <button class="btn btn-info btn-sm" (click)="showOrganizationDetails(mSetting.id)">הצגת פרטי הארגון</button>
       </div>
     </div>
-    <div class="organization-card card" *ngIf="isShow">
-      <div class="card-body">
-        <h2><strong>פרטי הארגון: </strong></h2>
-        <p><strong>שם:</strong> {{findOrganization.organizationName}}</p>
-        <p><strong>כתובת:</strong> {{findOrganization.adress}}</p>
-        <p><strong>איש קשר:</strong> {{findOrganization.contactMen}}</p>
-        <p><strong>טלפון ליצירת קשר:</strong> {{findOrganization.phon}}</p>
-        <p><strong>אימייל ליצירת קשר:</strong> {{findOrganization.email}}</p>
-        <p><strong>סוג הארגון:</strong> 
-          <span *ngIf="findOrganization.organizationType == 1"> ארגון פיננסי </span>
-          <span *ngIf="findOrganization.organizationType == 2"> ארגון צדקה </span>
-        </p>
-        <h3><strong>מנהל הארגון:</strong></h3>
-        <p>שם: {{thisManager.firstName}} {{thisManager.lastName}}</p>
-        <p>מייל: {{thisManager.email}}</p>
-        <p>טל: {{thisManager.phone}}</p>
+    <div class="organization-card container shadow-lg p-4" *ngIf="isShow">
+      <div class="row">
+        <!-- פרטי ארגון -->
+        <div class="col-md-6">
+          <h2 class="text-secondary text-center mb-4"><strong>פרטי הארגון</strong></h2>
+          <p class="organization-detail"><strong>שם:</strong> {{findOrganization.organizationName}}</p>
+          <p class="organization-detail"><strong>כתובת:</strong> {{findOrganization.adress}}</p>
+          <p class="organization-detail"><strong>איש קשר:</strong> {{findOrganization.contactMen}}</p>
+          <p class="organization-detail"><strong>טלפון ליצירת קשר:</strong> {{findOrganization.phon}}</p>
+          <p class="organization-detail"><strong>אימייל ליצירת קשר:</strong> {{findOrganization.email}}</p>
+          <p class="organization-detail"><strong>סוג הארגון:</strong> 
+            <span *ngIf="findOrganization.organizationType == 1">ארגון פיננסי</span>
+            <span *ngIf="findOrganization.organizationType == 2">ארגון צדקה</span>
+          </p>
+        </div>
+        
+        <!-- פרטי מנהל -->
+        <div class="col-md-6">
+          <h2 class="text-secondary text-center mb-4"><strong>מנהל הארגון</strong></h2>
+          <p class="organization-detail"><strong>שם:</strong> {{thisManager.firstName}} {{thisManager.lastName}}</p>
+          <p class="organization-detail"><strong>מייל:</strong> {{thisManager.email}}</p>
+          <p class="organization-detail"><strong>טל:</strong> {{thisManager.phone}}</p>
+        </div>
       </div>
     </div>
+    
   </div>
 </div>

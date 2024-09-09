@@ -1,19 +1,42 @@
 .organization-card {
-    border: 1px solid #ddd; /* גבול דק סביב הריבוע */
-    border-radius: 8px; /* פינות מעוגלות */
-    padding: 20px; /* רווח פנימי */
-    background-color: #f9f9f9; /* רקע רך */
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* צל קל */
-    margin-bottom: 20px; /* רווח תחתון */
+    max-width: 900px; /* הגבלה על רוחב הכרטיס */
+    margin: 0 auto; /* מרכז את הכרטיס */
+    border-radius: 15px; /* פינות מעוגלות */
+    background-color: #fefefe; /* רקע בהיר */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* צל */
+    padding: 20px;
 }
 
 .organization-detail {
-    margin-bottom: 10px; /* רווח בין השורות */
-    font-size: 16px; /* גודל פונט */
-    color: #333; /* צבע טקסט */
+    font-size: 18px; /* גודל פונט מוגדל */
+    margin-bottom: 15px; /* רווח בין השורות */
+    font-family: 'Segoe UI', sans-serif; /* טיפוגרפיה יותר אטרקטיבית */
+    color: #333; /* צבע טקסט מותאם */
 }
 
-.organization-detail .label {
-    font-weight: bold; /* הדגשה לתווית */
-    color: #2a2a2a; /* צבע תווית */
+.organization-detail strong {
+    color: rgb(103, 188, 103); /* צבע כחול לטקסט מודגש */
+}
+
+h2 {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px; /* כותרות גדולות יותר */
+    font-weight: bold;
+    color: rgb(137, 184, 137); /* צבע כותרת מותאם */
+    border-bottom: 2px solid rgb(165, 212, 165); /* פס תחתון מתחת לכותרת */
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.text-primary {
+    color: rgb(125, 207, 125) !important;
+}
+
+.text-secondary {
+    color: #6c757d !important;
+}
+
+.btn-info{
+    border-color: rgb(99, 204, 99);
+    background-color:  rgb(139, 217, 139);;
 }

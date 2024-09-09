@@ -67,7 +67,8 @@ export class ManagerSettingComponent implements OnInit {
   }
 
   saveManagerSetting() {
-    this.http.put(this.root + 'UpdateManagerSetting', this.managerSetting).subscribe((res: Result) => {
+    this.http.put(this.root + 'UpdateManagerSetting', this.managerSetting)
+    .subscribe((res: Result) => {
       console.log(res);
       if (res.success) {
         this.alert.success('ההגדרות נשמרו בהצלחה');
@@ -82,7 +83,8 @@ export class ManagerSettingComponent implements OnInit {
   }
 
   showOrganizationDetails(id: number) {
-    this.findOrganization = this.managerSettingList.find(item => item.id == id) || new ManagerSetting();
+    this.findOrganization = this.managerSettingList
+    .find(item => item.id == id) || new ManagerSetting();
     this.isShow = !this.isShow;
     this.thisManager = this.userService.getManagerById(this.findOrganization.managerId);
     console.log( this.thisManager,' this.thisManager');
