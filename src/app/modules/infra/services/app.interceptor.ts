@@ -35,20 +35,20 @@ export class AppInterceptor implements HttpInterceptor {
         console.log(error);
         if (error.error instanceof ErrorEvent) {
           console.log('this is client side error');
-          this.alert.error('קרתה שגיאה כללית, אנא פנה למנהל');
+          // this.alert.error('קרתה שגיאה כללית, אנא פנה למנהל');
         }
         else {
           console.log('this is server side error');
           if (error.status == 400 && error.error.title == "One or more validation errors occurred.") {
             console.log(error.error.errors);
-            this.alert.error('קרתה שגיאה מסוג ולידציית נתונים, אנא פנה למנהל');
+            // this.alert.error('קרתה שגיאה מסוג ולידציית נתונים, אנא פנה למנהל');
           }
           else if (error.status == 401) {
-            this.alert.info('אין לך הרשאות לדף זה, הינך מועבר לדף הכניסה');
+            // this.alert.info('אין לך הרשאות לדף זה, הינך מועבר לדף הכניסה');
             this.route.navigate(['account/login']);
           }
           else {
-            this.alert.error('קרתה שגיאה כללית, אנא פנה למנהל');
+            // this.alert.error('קרתה שגיאה כללית, אנא פנה למנהל');
           }
         }
         return throwError(error);
@@ -61,7 +61,7 @@ export class AppInterceptor implements HttpInterceptor {
             if (event.body.message) {
 
               if (event.body.message == 'Error 8888') {
-                this.alert.warning('אין לך הרשאות לביצוע פעולה זו');
+                // this.alert.warning('אין לך הרשאות לביצוע פעולה זו');
                 this.route.navigate(['/account/login']);
               }
               else if (event.body.message == 'Error 6666') {
@@ -82,7 +82,7 @@ export class AppInterceptor implements HttpInterceptor {
               }
             }
             else {
-              this.alert.error('קרתה שגיאה כללית במערכת, אנא פנה למנהל');
+              // this.alert.error('קרתה שגיאה כללית במערכת, אנא פנה למנהל');
             }
           }
         }

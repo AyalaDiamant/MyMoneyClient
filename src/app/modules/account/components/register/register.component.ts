@@ -377,8 +377,6 @@ export class RegisterComponent implements OnInit {
 
   save() {
     if (this.user.id > 0) {
-      console.log("hii")
-
       this.updateUser();
     }
     else {
